@@ -1,0 +1,5 @@
+{
+    "paths": {
+        "camera_page_template": "templates/camera_page_template.html"
+    }
+}
