@@ -95,7 +95,7 @@ def _html_str_replace(
 
 
 def load_html_template(
-    html_template_path: Path = Path("template/camera_page_template.html")
+    html_template_path: Path = Path("templates/camera_page_template.html")
 ) -> str:
 
     ''' Load HTML template string. '''
