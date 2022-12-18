@@ -16,7 +16,7 @@ PAGE="""\
 <title>jse PiCam</title>
 </head>
 <body bgcolor=”#000000">
-<img src="stream.mjpg" width="640" height="480">
+<img src="stream.mjpg" width="1536" height="1152">
 </body>
 </html>
 """
