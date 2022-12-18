@@ -28,55 +28,18 @@
     <header class="header">
         <div id="title">
 
-            <h1>Report for Project $project</h1>
-            <h4><i>Report generated $datestamp</i></h4>
-                <p>$description<br><br></p>
-                <p><b>Project lead: </b>$pl</p>
-                <p><b>Client manager: </b>$cm</p>
-                <p><b>Project reviewer: </b>$pr</p>
-                <p></p>
-                <p font-size="larger"><b>Next project review: </b>$next_review</p>
-                <p></p>
+            <h1>CatCam $cam_version</h1>
+                <p><br></p>
         </div>
         <div id="logo">
-            <a href="../index.html">
+            <!-- <a href="../index.html">
             <img src="../.resources/Springboard.png", alt="Springboard Pro logo">
-            </a>
+            </a> -->
         </div>
-
-
     </header>
 
     <div id="summary_div">
-        <div id="summary_table_1">
-            <h3>Financial summary</h3>
-            $financial_table
-            <br>
-
-            <h3>Timing summary</h3>
-            $timing_table
-            <br>
-
-            <h3>Latest feedback</h3>
-            <h4>$latest_feedback</h4><h4 id="enhance">$error</h4>
-        </div>
-        <div id="summary_graph">
-            <img src='$project_graphic' alt="Graph of summary data">
-            <img src='$project_spend_rate_graphic' alt="Graph of spend rate data">
-        </div>
-    </div>
-
-    <div id="project_summaries">
-        <h2>Invoices</h2>
-        <div id="table_buttons">
-            <button onclick="togglediv('invoices_hide')">Hide/Show</button>
-            <a href="../.project_tables/$project _invoices_$master_datestamp.csv" download="$project Invoices $datestamp">
-                <button type="button">Download (.csv)</button>
-            </a>
-        </div>
-        <div id="invoices_hide">
-            $invoices_table
-        </div>
+        <img src="stream.mjpg" width="768" height="576">
     </div>
 
     <div id="footer">

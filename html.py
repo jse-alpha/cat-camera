@@ -36,22 +36,20 @@ def _html_str_replace(
     return html
 
 
-def template_to_html(
-    paths_dict: dict,
-    master_datetime: datetime
+def load_html_template(
+    html_template_path: Path = Path("template/camera_page_template.html")
 ) -> str:
 
-    ''' Create HTML summary string. '''
+    ''' Load HTML template string. '''
 
     with open(
-        paths_dict['html_templates_path'] / Path('summary.html')
+        html_template_path
     ) as template_file:
 
         template = Template(template_file.read())
 
     params = {
-        'datestamp': master_datetime.strftime('%Y-%m-%d'),
-        'timestamp': master_datetime.strftime('%Y-%m-%d %H:%M:%S')
+        'cam_version': __version__
     }
 
     html = template.substitute(params)
