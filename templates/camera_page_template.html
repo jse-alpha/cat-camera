@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!-- Jordan Eriksen -->
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="normalise" href="resources/normalize.css">
+    <link rel="stylesheet" href="resources/screen.css">
+    <link rel="icon" type="image/x-icon" href="resources/favicon.ico">
+    <title>CatCam $cam_version</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+    function togglediv(id) {
+        var div = document.getElementById(id);
+        div.style.display = div.style.display == "none" ? "block" : "none";
+    }
+    </script>
+    <div id="menu_buttons">
+        <a href="index.html">
+            <button type="button">Camera</button>
+        </a>
+        <a href="utilisation.html">
+            <button type="button">Utilisation</button>
+        </a>
+    </div>
+    <header class="header">
+        <div id="title">
+
+            <h1>CatCam $cam_version</h1>
+                <p><br></p>
+        </div>
+        <div id="logo">
+            <!-- <a href="../index.html">
+            <img src="../.resources/Springboard.png", alt="Springboard Pro logo">
+            </a> -->
+        </div>
+    </header>
+
+    <div id="summary_div">
+        <img src="stream.mjpg" width="768" height="576">
+    </div>
+
+    <div id="footer">
+        <div id="footer_content">
+            <p>CatCam $cam_version</p>
+        </div>
+    </div>
+
+</body>
+
+</html>

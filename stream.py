@@ -2,17 +2,24 @@
 # Source code from the official PiCamera package
 # http://picamera.readthedocs.io/en/latest/recipes2.html#web-streaming
 
-__version__ = "v1.0"
-
 import io
 import picamera
 import logging
 import socketserver
 from threading import Condition
 from http import server
-from pathlib import Path
-from string import Template
 
+
+PAGE="""\
+<html>
+<head>
+<title>jse PiCam</title>
+</head>
+<body bgcolor=”#000000">
+<img src="stream.mjpg" width="640" height="480">
+</body>
+</html>
+"""
 
 class StreamingOutput(object):
     def __init__(self):
@@ -31,7 +38,6 @@ class StreamingOutput(object):
             self.buffer.seek(0)
         return self.buffer.write(buf)
 
-
 class StreamingHandler(server.BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path == '/':
@@ -39,7 +45,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.send_header('Location', '/index.html')
             self.end_headers()
         elif self.path == '/index.html':
-            content = load_html_template().encode('utf-8')
+            content = PAGE.encode('utf-8')
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
             self.send_header('Content-Length', len(content))
@@ -71,63 +77,18 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.send_error(404)
             self.end_headers()
 
-
 class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
     allow_reuse_address = True
     daemon_threads = True
 
-
-def _html_str_replace(
-    html: str,
-    mapped: dict = {
-        r'\r': '.',
-        r'\n': ' ',
-        '>NaT<': '><'
-    }
-) -> str:
-
-    ''' Replace characters in html based on mapped dict. '''
-
-    for chars in mapped:
-        html = html.replace(chars, mapped[chars])
-
-    return html
-
-
-def load_html_template(
-    html_template_path: Path = Path("templates/camera_page_template.html")
-) -> str:
-
-    ''' Load HTML template string. '''
-
-    with open(
-        html_template_path
-    ) as template_file:
-
-        template = Template(template_file.read())
-
-    params = {
-        'cam_version': __version__
-    }
-
-    html = template.substitute(params)
-
-    # Remove NaT (not a time)
-    return _html_str_replace(html)
-
-
-if __name__=="__main__":
-
-    with picamera.PiCamera(resolution='1536x1152', framerate=24) as camera:
-        output = StreamingOutput()
-
-        camera.rotation = 180
-        camera.start_recording(output, format='mjpeg')
-
-        try:
-            address = ('', 8081)
-            server = StreamingServer(address, StreamingHandler)
-            server.serve_forever()
-
-        finally:
-            camera.stop_recording()
+with picamera.PiCamera(resolution='1536x1152', framerate=24) as camera:
+    output = StreamingOutput()
+    #Uncomment the next line to change your Pi's Camera rotation (in degrees)
+    camera.rotation = 0
+    camera.start_recording(output, format='mjpeg')
+    try:
+        address = ('', 8081)
+        server = StreamingServer(address, StreamingHandler)
+        server.serve_forever()
+    finally:
+        camera.stop_recording()
