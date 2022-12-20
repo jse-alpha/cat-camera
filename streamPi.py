@@ -68,7 +68,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                     'Removed streaming client %s: %s',
                     self.client_address, str(e))
         else:
-            # self.send_error(404)
+            self.send_error(404)
             self.end_headers()
 
 
